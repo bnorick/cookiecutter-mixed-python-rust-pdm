@@ -1,0 +1,36 @@
+{%- set license_classifiers = {
+    "MIT": "License :: OSI Approved :: MIT License",
+    "BSD-3-Clause": "License :: OSI Approved :: BSD License",
+    "ISC": "License :: OSI Approved :: ISC License (ISCL)",
+    "Apache-2.0": "License :: OSI Approved :: Apache Software License",
+    "GPL-3.0-only": "License :: OSI Approved :: GNU General Public License v3 (GPLv3)"
+} -%}
+[project]
+name = "{{ cookiecutter.package_name }}"
+version = "{{ cookiecutter.version }}"
+description = "{{ cookiecutter.project_short_description }}"
+authors = [
+    {name = "{{ cookiecutter.full_name }}", email = "{{ cookiecutter.email }}"},
+]
+classifiers=[
+{%- if cookiecutter.open_source_license in license_classifiers %}
+    "{{ license_classifiers[cookiecutter.open_source_license] }}",
+{%- endif %}
+]
+dependencies = [
+{%- if cookiecutter.command_line_interface|lower == "click" %}
+"click>=8.1.7",
+{%- endif %}
+]
+requires-python = ">=3.8"
+readme = "README.md"
+license = {file = "LICENSE"}
+
+{% if cookiecutter.command_line_interface|lower == 'click' -%}
+[project.scripts]
+{{ cookiecutter.package_name }} = '{{ cookiecutter.package_name }}.cli:main'
+{% endif -%}
+
+[build-system]
+requires = ["setuptools>=61", "wheel", "setuptools-rust>=1.5.2"]
+build-backend = "setuptools.build_meta"
