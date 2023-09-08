@@ -4,7 +4,6 @@
     "project_short_description": "Blazingly fast X with Rust",
     "full_name": "First Last",
     "email": "you@example.com",
-    "github_username": "example",
     "version": "0.1.0",
     "command_line_interface": ["Click", "No command-line interface"],
     "open_source_license": ["MIT", "BSD-3-Clause", "ISC", "Apache-2.0", "GPL-3.0-only", "Not open source"]
