@@ -11,7 +11,6 @@ setup(
     rust_extensions=[
         RustExtension(
             "{{ cookiecutter.package_name }}._{{ cookiecutter.package_name }}",
-            path="src/rust/Cargo.toml",
             binding=Binding.PyO3,
             debug=False,
         )
