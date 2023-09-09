@@ -42,7 +42,6 @@ install: $(DEPENDENCIES) .cache ## Install project dependencies
 $(DEPENDENCIES): pdm.lock
 	@ rm -rf target/.pdm-*
 	pdm install
-	pdm run pre-commit install
 	@ touch $@
 
 pdm.lock: pyproject.toml
@@ -54,22 +53,27 @@ pdm.lock: pyproject.toml
 
 # CHECKS ######################################################################
 
+.PHONY: format
+format: install
+	pdm run ruff ${PACKAGE_DIR} tests/python
+	pdm run black $(PACKAGE_DIR) tests/python
+	@ echo
+
 .PHONY: check
-check: install  ## Run formaters, linters, and static analysis
+check: install format  ## Run formaters, linters, and static analysis
 	pdm lock --check
-	pdm run pre-commit run -a
-	pdm run mypy
-	pdm run deptry .
+	pdm run mypy ${PACKAGE_DIR} tests/python
+	pdm run deptry ${PACKAGE_DIR} tests/python
 
 # TESTS #######################################################################
 
 .PHONY: test
 test: install  ## Run unit and integration tests
-	pdm run pytest --random --doctest-modules
+	pdm run pytest tests/python --random --doctest-modules
 
 .PHONY: test-repeat
 test-repeat: install
-	pdm run pytest --count=5 --random --doctest-modules --exitfirst
+	pdm run pytest tests/python --count=5 --random --doctest-modules --exitfirst
 
 # RELEASE #####################################################################
 

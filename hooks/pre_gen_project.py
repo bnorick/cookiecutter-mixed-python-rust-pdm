@@ -11,5 +11,5 @@ if not re.match(PACKAGE_PATTERN, package_name):
           f"Package names should start with a letter or underscore and be composed entirely "
           f"of letters, digits, and/or underscores.")
 
-    #Exit to cancel project
+    # exit to cancel recipe
     sys.exit(1)

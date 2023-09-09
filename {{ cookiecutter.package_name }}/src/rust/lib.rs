@@ -1,8 +1,8 @@
 use pyo3::prelude::*;
 
 #[pyfunction]
-fn is_foobar(path: String) -> PyResult<bool> {
-    Ok(path == "foobar")
+fn is_foobar(data: String) -> PyResult<bool> {
+    Ok(data == "foobar")
 }
 
 #[pymodule]

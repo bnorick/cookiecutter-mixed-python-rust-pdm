@@ -43,13 +43,14 @@ test = [
     "pytest-watch>=4.2.0",
 ]
 dev = [
-  "deptry>=0.6.4",
-  "mypy>=0.981",
-  "pre-commit>=2.20.0",
-  "bump2version>=1.0.1",
-  "nbstripout>=0.6.0",
-  "ipython>=8.12.0",
-  "jupyter>=1.0.0;sys_platform != 'win32'"
+    "ruff>=0.0.287",
+    "black>=23.9.0",
+    "deptry>=0.6.4",
+    "mypy>=0.981",
+    "bump2version>=1.0.1",
+    "nbstripout>=0.6.0",
+    "ipython>=8.12.0",
+    "jupyter>=1.0.0;sys_platform != 'win32'"
 ]
 
 [tool.black]
@@ -58,7 +59,6 @@ target-version = ["py37"]
 preview = true
 
 [tool.mypy]
-files = ["src/python/{{cookiecutter.package_name}}", "tests/python"]
 cache_dir = ".cache/mypy/"
 disallow_untyped_defs = "True"
 disallow_any_unimported = "True"
@@ -67,8 +67,10 @@ check_untyped_defs = "True"
 warn_return_any = "True"
 warn_unused_ignores = "True"
 show_error_codes = "True"
+ignore_missing_imports = "True"
 
 [tool.ruff]
+cache-dir = ".cache/ruff/"
 target-version = "py37"
 line-length = 120
 fix = true
@@ -116,6 +118,9 @@ ignore = [
     # Use of assert detected
     "S101",
 ]
+
+[tool.deptry]
+known_first_party = ["{{ cookiecutter.package_name }}"]
 
 [build-system]
 requires = ["setuptools>=61", "wheel", "setuptools-rust>=1.5.2"]
